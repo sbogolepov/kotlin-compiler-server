@@ -76,7 +76,7 @@ class KotlinEnvironment(
   }
 
   private val environment = KotlinCoreEnvironment.createForProduction(
-    parentDisposable = Disposer.newDisposable(),
+    projectDisposable = Disposer.newDisposable(),
     configuration = configuration.copy(),
     configFiles = EnvironmentConfigFiles.JVM_CONFIG_FILES
   )
