@@ -91,6 +91,7 @@ allprojects {
         maven("https://www.myget.org/F/rd-snapshots/maven/")
         maven("https://kotlin.jetbrains.space/p/kotlin/packages/maven/kotlin-ide")
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap")
+        mavenLocal()
     }
     afterEvaluate {
         dependencies {
@@ -141,6 +142,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:core:231-$kotlinIdeVersion-$kotlinIdeVersionSuffix")
     implementation(project(":executors", configuration = "default"))
     implementation(project(":common", configuration = "default"))
+    implementation(project(":swift-export", configuration = "default"))
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
@@ -169,6 +171,7 @@ fun generateProperties(prefix: String = "") = """
     spring.mvc.pathmatch.matching-strategy=ant_path_matcher
     server.compression.enabled=true
     server.compression.mime-types=application/json
+    kotlin.native.home=${project(":swift-export").ext.get("kotlinNativeHome")}
 """.trimIndent()
 
 java {
@@ -187,7 +190,10 @@ tasks.withType<KotlinCompile> {
     dependsOn(copyWasmDependencies)
     dependsOn(":executors:jar")
     dependsOn(":indexation:run")
-    buildPropertyFile()
+    dependsOn(":swift-export:downloadKotlinNativeDistribution")
+    doLast {
+        buildPropertyFile()
+    }
 }
 println("Using Kotlin compiler $kotlinVersion")
 
