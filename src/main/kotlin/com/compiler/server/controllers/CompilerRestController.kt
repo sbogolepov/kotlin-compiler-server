@@ -26,6 +26,10 @@ class CompilerRestController(private val kotlinProjectExecutor: KotlinProjectExe
     return when (KotlinTranslatableCompiler.valueOf(compiler.uppercase())) {
       KotlinTranslatableCompiler.JS -> kotlinProjectExecutor.convertToJsIr(project)
       KotlinTranslatableCompiler.WASM -> kotlinProjectExecutor.convertToWasm(project)
+      KotlinTranslatableCompiler.SWIFT -> kotlinProjectExecutor.convertToSwift(project).let {
+        // TODO: A hack to avoid changing the return type of the function.
+        object : TranslationResultWithJsCode(it.swiftCode, it.compilerDiagnostics, it.exception) {}
+      }
     }
   }
 

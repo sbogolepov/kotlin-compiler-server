@@ -44,6 +44,7 @@ class KotlinPlaygroundRestController(private val kotlinProjectExecutor: KotlinPr
               ProjectType.JS_IR, ProjectType.CANVAS -> kotlinProjectExecutor.convertToJsIr(project)
               ProjectType.WASM -> kotlinProjectExecutor.convertToWasm(project)
               ProjectType.JUNIT -> kotlinProjectExecutor.test(project)
+              ProjectType.SWIFT_EXPORT -> kotlinProjectExecutor.convertToSwift(project)
             }
           }
 
