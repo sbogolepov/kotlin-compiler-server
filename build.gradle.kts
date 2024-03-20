@@ -91,7 +91,7 @@ allprojects {
         maven("https://www.myget.org/F/rd-snapshots/maven/")
         maven("https://kotlin.jetbrains.space/p/kotlin/packages/maven/kotlin-ide")
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap")
-        mavenLocal()
+        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/swift-export-experimental")
     }
     afterEvaluate {
         dependencies {

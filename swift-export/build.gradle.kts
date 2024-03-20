@@ -8,10 +8,11 @@ repositories {
     mavenCentral()
     // For Analysis API components
     maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-ide-plugin-dependencies")
-    mavenLocal()
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/swift-export-experimental")
 }
 
 val kotlinVersion = rootProject.properties["systemProp.kotlinVersion"]
+val swiftExportVersion = rootProject.properties["systemProp.swiftExportVersion"]
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-compiler:$kotlinVersion")
@@ -27,11 +28,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:symbol-light-classes-for-ide:$kotlinVersion") { isTransitive = false }
 
     // Swift export not-yet-published dependencies.
-    implementation("org.jetbrains.kotlin:sir:2.0.255-SNAPSHOT") { isTransitive = false }
-    implementation("org.jetbrains.kotlin:sir-passes:2.0.255-SNAPSHOT") { isTransitive = false }
-    implementation("org.jetbrains.kotlin:sir-compiler-bridge:2.0.255-SNAPSHOT") { isTransitive = false }
-    implementation("org.jetbrains.kotlin:sir-printer:2.0.255-SNAPSHOT") { isTransitive = false }
-    implementation("org.jetbrains.kotlin:swift-export-standalone:2.0.255-SNAPSHOT") { isTransitive = false }
+    implementation("org.jetbrains.kotlin:sir:$swiftExportVersion") { isTransitive = false }
+    implementation("org.jetbrains.kotlin:sir-passes:$swiftExportVersion") { isTransitive = false }
+    implementation("org.jetbrains.kotlin:sir-compiler-bridge:$swiftExportVersion") { isTransitive = false }
+    implementation("org.jetbrains.kotlin:sir-printer:$swiftExportVersion") { isTransitive = false }
+    implementation("org.jetbrains.kotlin:swift-export-standalone:$swiftExportVersion") { isTransitive = false }
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
